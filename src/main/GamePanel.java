@@ -31,7 +31,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     // Sistema
     TileManager tileM = new TileManager(this);
-    KeyHandler keyH = new KeyHandler();
+    KeyHandler keyH = new KeyHandler(this);
     Sound music = new Sound();
     Sound se = new Sound();
     public CollisionChecker cChecker = new CollisionChecker(this);
@@ -41,7 +41,13 @@ public class GamePanel extends JPanel implements Runnable{
 
     // Entità e oggetti
     public Player player = new Player(this, keyH);
-    public SuperObject obj[] = new SuperObject[10];
+    public SuperObject[] obj = new SuperObject[10];
+
+    // Stato di gioco
+    public int gameState;
+    public final int playState = 1;
+    public final int pauseState = 2;
+
     
 
     public GamePanel() {
@@ -50,14 +56,15 @@ public class GamePanel extends JPanel implements Runnable{
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
-        this.setFocusable(true);;
+        this.setFocusable(true);
     }
 
     public void setupGame() {
 
         aSetter.setObject();
-
         playMusic(0);
+        stopMusic();
+        gameState = playState;
     }
 
     public void startGameThread() {
@@ -90,8 +97,7 @@ public class GamePanel extends JPanel implements Runnable{
             }
 
             if(timer >= 1000000000) {
-                // System.out.println("FPS > " + drawCount);
-                // drawCount = 0;
+
                 timer = 0;
             }
         }
@@ -100,7 +106,14 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void update() {
 
-        player.update();
+        if(gameState == playState) {
+
+            player.update();
+        }
+        if(gameState == pauseState) {
+
+            // Nulla
+        }
     }
 
     public void paintComponent(Graphics g) {
@@ -119,10 +132,10 @@ public class GamePanel extends JPanel implements Runnable{
         // Caselle
         tileM.draw(g2);
 
-        for(int i = 0; i < obj.length; i++) {
+        for (SuperObject superObject : obj) {
 
-            if(obj[i] != null) {
-                obj[i].draw(g2, this);
+            if (superObject != null) {
+                superObject.draw(g2, this);
             }
         }
 

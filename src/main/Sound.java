@@ -9,7 +9,7 @@ import javax.sound.sampled.Clip;
 public class Sound {
     
     Clip clip;
-    URL soundURL[] = new URL[30];
+    URL[] soundURL = new URL[30];
 
     public Sound() {
 

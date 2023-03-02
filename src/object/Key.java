@@ -1,6 +1,7 @@
 package object;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import javax.imageio.ImageIO;
 
@@ -10,7 +11,7 @@ public class Key extends SuperObject{
 
         name = "Chiave";
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/objects/key.png"));
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/key.png")));
 
         }catch(IOException e) {
             e.printStackTrace();
