@@ -14,3 +14,6 @@ First playable demo
 Changed the core game mechanics.
 
 Added pause screen
+
+### v0.2-beta
+Added NPC that roams around randomly.
