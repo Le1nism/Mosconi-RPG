@@ -18,6 +18,7 @@ public class NPC_OldMan extends Entity {
         speed = 1;
 
         getImage();
+        setDialogue();
     }
 
     public void getImage() {
@@ -70,5 +71,19 @@ public class NPC_OldMan extends Entity {
 
             actionLockCounter = 0;
         }
+    }
+
+    public void setDialogue() {
+
+        dialogues[0] = "Bella socione.";
+        dialogues[1] = "Sei qui per prendere il tesoro\nda quel bastardo di Pecanius?";
+        dialogues[2] = "Peggio brasa della situa!";
+        dialogues[3] = "Fai attenzione perchè non\nverrò io a salvarti il culo!";
+
+    }
+
+    public void speak() {
+
+        super.speak();
     }
 }
