@@ -7,13 +7,13 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 import javax.imageio.ImageIO;
 
 
 public class Player extends Entity {
-    
-    GamePanel gp;
+
     KeyHandler keyH;
 
     public final int screenX;
@@ -21,7 +21,7 @@ public class Player extends Entity {
 
     public Player(GamePanel gp, KeyHandler keyH) {
 
-        this.gp = gp;
+        super(gp);
         this.keyH = keyH;
 
         screenX = gp.screenWidth/2 - (gp.tileSize/2);
@@ -53,14 +53,14 @@ public class Player extends Entity {
 
         try {
 
-            up1 = ImageIO.read(getClass().getResourceAsStream("/player/up_1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/player/up_2.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/player/down_1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/player/down_2.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/player/left_1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/player/left_2.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/player/right_1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/player/right_2.png"));
+            up1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/up_1.png")));
+            up2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/up_2.png")));
+            down1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/down_1.png")));
+            down2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/down_2.png")));
+            left1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/left_1.png")));
+            left2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/left_2.png")));
+            right1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/right_1.png")));
+            right2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/right_2.png")));
 
         }catch(IOException e) {
             e.printStackTrace();
@@ -71,18 +71,18 @@ public class Player extends Entity {
 
     public void update() {
 
-        if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true) {
+        if(keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
             
-            if(keyH.upPressed == true) {
+            if(keyH.upPressed) {
                 direction = "up";
             }
-            else if(keyH.downPressed == true) {
+            else if(keyH.downPressed) {
                 direction = "down";
             }
-            else if(keyH.leftPressed == true) {
+            else if(keyH.leftPressed) {
                 direction = "left";
             }
-            else if(keyH.rightPressed == true) {
+            else {
                 direction = "right";
             }
 
@@ -94,22 +94,18 @@ public class Player extends Entity {
             int objIndex = gp.cChecker.checkObject(this, true);
             pickUpObject(objIndex);
 
-            // Se la collisione è falsa, il giocatore può muoversi
-            if(collisionOn == false) {
+            // Controlla collisione con NPC
+            int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
+            interactNPC(npcIndex);
 
-                switch(direction) {
-                    case "up":
-                        worldY -= speed;
-                        break;
-                    case "down":
-                        worldY += speed;
-                        break;
-                    case "left":
-                        worldX -= speed;
-                        break;
-                    case "right":
-                        worldX += speed;
-                        break;
+            // Se la collisione è falsa, il giocatore può muoversi
+            if(!collisionOn) {
+
+                switch (direction) {
+                    case "up" -> worldY -= speed;
+                    case "down" -> worldY += speed;
+                    case "left" -> worldX -= speed;
+                    case "right" -> worldX += speed;
                 }
             }
     
@@ -126,6 +122,14 @@ public class Player extends Entity {
         }
     }
 
+    private void interactNPC(int npcIndex) {
+
+        if(npcIndex!= 999) {
+
+            System.out.println("Interacting with NPC " + npcIndex);
+        }
+    }
+
     public void pickUpObject(int i) {
 
         if(i != 999) {
@@ -136,40 +140,40 @@ public class Player extends Entity {
     public void draw(Graphics2D g2) {
 
         BufferedImage image = null;
-        
-        switch(direction) {
-            case "up":
-                if(spriteNum == 1) {
+
+        switch (direction) {
+            case "up" -> {
+                if (spriteNum == 1) {
                     image = up1;
                 }
-                if(spriteNum == 2) {
+                if (spriteNum == 2) {
                     image = up2;
                 }
-                break;
-            case "down":
-                if(spriteNum == 1) {
+            }
+            case "down" -> {
+                if (spriteNum == 1) {
                     image = down1;
                 }
-                if(spriteNum == 2) {
+                if (spriteNum == 2) {
                     image = down2;
                 }
-                break;
-            case "left":
-                if(spriteNum == 1) {
+            }
+            case "left" -> {
+                if (spriteNum == 1) {
                     image = left1;
                 }
-                if(spriteNum == 2) {
+                if (spriteNum == 2) {
                     image = left2;
                 }
-                break;
-            case "right":
-                if(spriteNum == 1) {
+            }
+            case "right" -> {
+                if (spriteNum == 1) {
                     image = right1;
                 }
-                if(spriteNum == 2) {
+                if (spriteNum == 2) {
                     image = right2;
                 }
-                break;
+            }
         }
 
         g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);

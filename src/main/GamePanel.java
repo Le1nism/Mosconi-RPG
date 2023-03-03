@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+import entity.*;
 import entity.Player;
 import object.SuperObject;
 import tile.TileManager;
@@ -42,6 +43,8 @@ public class GamePanel extends JPanel implements Runnable{
     // Entità e oggetti
     public Player player = new Player(this, keyH);
     public SuperObject[] obj = new SuperObject[10];
+    public Entity[] npc = new Entity[10];
+
 
     // Stato di gioco
     public int gameState;
@@ -62,6 +65,7 @@ public class GamePanel extends JPanel implements Runnable{
     public void setupGame() {
 
         aSetter.setObject();
+        aSetter.setNPC();
         playMusic(0);
         stopMusic();
         gameState = playState;
@@ -75,7 +79,7 @@ public class GamePanel extends JPanel implements Runnable{
     @Override
     public void run() {
         
-        double drawInterval = 1000000000 / FPS;
+        double drawInterval = 1000000000.0 / FPS;
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
@@ -108,7 +112,16 @@ public class GamePanel extends JPanel implements Runnable{
 
         if(gameState == playState) {
 
+            // Giocatore
             player.update();
+
+            // NPC
+            for (Entity entity : npc) {
+
+                if (entity != null) {
+                    entity.update();
+                }
+            }
         }
         if(gameState == pauseState) {
 
@@ -136,6 +149,14 @@ public class GamePanel extends JPanel implements Runnable{
 
             if (superObject != null) {
                 superObject.draw(g2, this);
+            }
+        }
+
+        // NPC
+        for (Entity entity : npc) {
+
+            if (entity != null) {
+                entity.draw(g2);
             }
         }
 
