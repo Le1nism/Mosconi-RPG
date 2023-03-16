@@ -8,6 +8,8 @@ Esc - Pause
 
 Enter - Interact
 
+UP/DOWN - Select options
+
 ## Version Changelog
 ### alpha-1
 First playable demo
