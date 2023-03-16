@@ -48,6 +48,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     // Stato di gioco
     public int gameState;
+    public final int titleState = 0;
     public final int playState = 1;
     public final int pauseState = 2;
     public final int dialogueState = 3;
@@ -69,7 +70,7 @@ public class GamePanel extends JPanel implements Runnable{
         aSetter.setNPC();
         playMusic(0);
         stopMusic();
-        gameState = playState;
+        gameState = titleState;
     }
 
     public void startGameThread() {
@@ -140,32 +141,38 @@ public class GamePanel extends JPanel implements Runnable{
 
             drawStart = System.nanoTime();
         }
-        
 
+        // Menu principale
+        if(gameState == titleState) {
 
-        // Caselle
-        tileM.draw(g2);
-
-        for (SuperObject superObject : obj) {
-
-            if (superObject != null) {
-                superObject.draw(g2, this);
-            }
+            ui.draw(g2);
         }
+        else { // Altri
 
-        // NPC
-        for (Entity entity : npc) {
+            // Caselle
+            tileM.draw(g2);
 
-            if (entity != null) {
-                entity.draw(g2);
+            for (SuperObject superObject : obj) {
+
+                if (superObject != null) {
+                    superObject.draw(g2, this);
+                }
             }
+
+            // NPC
+            for (Entity entity : npc) {
+
+                if (entity != null) {
+                    entity.draw(g2);
+                }
+            }
+
+            // GIOCATORE
+            player.draw(g2);
+
+            // UI
+            ui.draw(g2);
         }
-
-        // GIOCATORE
-        player.draw(g2);
-
-        // UI
-        ui.draw(g2);
 
         // Debug
         if(keyH.checkDrawTime) {
@@ -175,7 +182,6 @@ public class GamePanel extends JPanel implements Runnable{
             g2.drawString("Caricato in: " + passed + "ns", 10, 400);
             System.out.println("Tempo di caricamento > " + passed);
         }
-
 
         g2.dispose();
 

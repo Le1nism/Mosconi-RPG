@@ -22,3 +22,6 @@ Added NPC that roams around randomly.
 
 ### v0.3-beta
 Added dialogue system to interact with NPC.
+
+### v0.4-beta
+Added title screen.
