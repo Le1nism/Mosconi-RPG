@@ -8,7 +8,7 @@ public class Main{
 
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Chiusura finestra con X
         window.setResizable(false); // Dimensione finestra non modificabile
-        window.setTitle("PixelRPG"); // Nome finestra
+        window.setTitle("MosconiRPG v0.6.1-beta"); // Nome finestra
 
         GamePanel gamePanel = new GamePanel(); 
         window.add(gamePanel); // Aggiungi il pannello alla finestra
