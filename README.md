@@ -1,5 +1,6 @@
 # PixelRPG
 RPG/Puzzle game developed in Java
+
 Tribute to the Italian celebrity Germano Mosconi
 
 ## Controls
