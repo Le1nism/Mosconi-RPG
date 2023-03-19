@@ -75,10 +75,10 @@ public class NPC_OldMan extends Entity {
 
     public void setDialogue() {
 
-        dialogues[0] = "Bella socione.";
-        dialogues[1] = "Sei qui per prendere il tesoro\nda quel bastardo di Pecanius?";
-        dialogues[2] = "Peggio brasa della situa!";
-        dialogues[3] = "Fai attenzione perchè non\nverrò io a salvarti il culo!";
+        dialogues[0] = "Ciao, Germano!";
+        dialogues[1] = "Sei venuto fin qua per sconfiggere\nil Mona?";
+        dialogues[2] = "Ammiro il tuo coraggio!";
+        dialogues[3] = "Fai attenzione, sarà pericoloso...\nBuona fortuna!";
 
     }
 

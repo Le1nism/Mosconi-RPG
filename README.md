@@ -29,4 +29,7 @@ Added dialogue system to interact with NPC.
 Added title screen.
 
 ### v0.5-beta
-Added health bar
+Added health bar.
+
+### v0.6-beta
+Added basic events (damage / heal) + sound effects.

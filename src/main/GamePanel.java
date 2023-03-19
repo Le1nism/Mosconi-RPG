@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.io.IOException;
 
 import javax.swing.JPanel;
 
@@ -38,6 +39,7 @@ public class GamePanel extends JPanel implements Runnable{
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI(this);
+    public EventHandler eHandler = new EventHandler(this);
     Thread gameThread;
 
     // Entità e oggetti
@@ -145,7 +147,11 @@ public class GamePanel extends JPanel implements Runnable{
         // Menu principale
         if(gameState == titleState) {
 
-            ui.draw(g2);
+            try {
+                ui.draw(g2);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
         else { // Altri
 
@@ -171,7 +177,11 @@ public class GamePanel extends JPanel implements Runnable{
             player.draw(g2);
 
             // UI
-            ui.draw(g2);
+            try {
+                ui.draw(g2);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         // Debug

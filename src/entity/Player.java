@@ -102,6 +102,10 @@ public class Player extends Entity {
             int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
             interactNPC(npcIndex);
 
+            // Controlla eventi
+            gp.eHandler.checkEvent();
+            gp.keyH.enterPressed = false;
+
             // Se la collisione è falsa, il giocatore può muoversi
             if(!collisionOn) {
 
@@ -136,8 +140,6 @@ public class Player extends Entity {
                 gp.npc[npcIndex].speak();
             }
         }
-
-        gp.keyH.enterPressed = false;
     }
 
     public void pickUpObject(int i) {

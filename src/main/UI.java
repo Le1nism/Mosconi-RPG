@@ -3,9 +3,12 @@ package main;
 import object.Heart;
 import object.SuperObject;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.Objects;
 
 public class UI {
     
@@ -50,7 +53,7 @@ public class UI {
         heart_blank = heart.image3;
     }
 
-    public void draw(Graphics2D g2) {
+    public void draw(Graphics2D g2) throws IOException {
 
         this.g2 = g2;
         g2.setFont(font);
@@ -114,14 +117,14 @@ public class UI {
 
     }
 
-    private void drawTitleScreen() {
+    private void drawTitleScreen() throws IOException {
 
         g2.setColor(new Color(0,0,0));
         g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 
         // Nome titolo
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 70f));
-        String text = "Pixel RPG";
+        String text = "Mosconi RPG";
         int x = getXForCenteredText(text);
         int y = gp.tileSize * 3;
 
@@ -136,7 +139,7 @@ public class UI {
         // Immagine sfondo
         x = gp.screenWidth/2 - (gp.tileSize*2)/2;
         y += gp.tileSize*2;
-        g2.drawImage(gp.player.down1, x, y, gp.tileSize*2, gp.tileSize*2, null);
+        g2.drawImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/mainMenu.jpg"))), x, y, 128, 128, null);
 
         // Menu
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 20f));
