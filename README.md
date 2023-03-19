@@ -1,7 +1,7 @@
 # PixelRPG
 RPG/Puzzle game developed in Java
 
-Tribute to the Italian celebrity Germano Mosconi
+Tribute to the Italian celebrity/meme/whatsoever Germano Mosconi
 
 ## Controls
 WASD - Movement
