@@ -1,6 +1,10 @@
 package main;
 
+import object.Heart;
+import object.SuperObject;
+
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.InputStream;
 
 public class UI {
@@ -8,6 +12,8 @@ public class UI {
     GamePanel gp;
     Graphics2D g2;
     Font font, finishFont;
+
+    BufferedImage heart_full, heart_half, heart_blank;
 
     public String currentDialogue = "";
 
@@ -36,6 +42,12 @@ public class UI {
     
                 e.printStackTrace();
             }
+
+        // Crea oggetti in HUD
+        SuperObject heart = new Heart(gp);
+        heart_full = heart.image;
+        heart_half = heart.image2;
+        heart_blank = heart.image3;
     }
 
     public void draw(Graphics2D g2) {
@@ -52,7 +64,7 @@ public class UI {
         // Play state
         if(gp.gameState == gp.playState) {
 
-            // Fai roba del play state dopo
+            drawPlayerLife();
         }
         // Pause state
         if(gp.gameState == gp.pauseState) {
@@ -64,6 +76,42 @@ public class UI {
 
             drawDialogueScreen();
         }
+    }
+
+    private void drawPlayerLife() {
+
+        int x = gp.tileSize/2;
+        int y = gp.tileSize/2;
+        int i = 0;
+
+        while(i < gp.player.maxLife/2) {
+
+            g2.drawImage(heart_blank, x, y, null);
+            i++;
+            x += gp.tileSize + 5;
+        }
+
+        // Reset
+        x = gp.tileSize/2;
+        y = gp.tileSize/2;
+        i = 0;
+
+        // Vita attuale
+        while(i < gp.player.life) {
+
+            g2.drawImage(heart_half, x, y, null);
+            i++;
+
+            if(i < gp.player.life) {
+
+                g2.drawImage(heart_full, x, y, null);
+            }
+
+            i++;
+            x += gp.tileSize + 5;
+        }
+
+
     }
 
     private void drawTitleScreen() {
