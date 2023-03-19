@@ -35,3 +35,6 @@ Added health bar.
 
 ### v0.6-beta
 Added basic events (damage / heal) + sound effects.
+
+### v0.6.1-beta
+Fixing pit event bug so that you can't take damage multiple times if you spam the Enter key.
