@@ -1,17 +1,14 @@
 package main;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.io.IOException;
-
-import javax.swing.JPanel;
-
-import entity.*;
+import entity.Entity;
 import entity.Player;
-import object.SuperObject;
 import tile.TileManager;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Comparator;
 
 public class GamePanel extends JPanel implements Runnable{
     final int originalTileSize = 16; // 16x16 pixel
@@ -44,8 +41,9 @@ public class GamePanel extends JPanel implements Runnable{
 
     // Entità e oggetti
     public Player player = new Player(this, keyH);
-    public SuperObject[] obj = new SuperObject[10];
+    public Entity[] obj = new Entity[10];
     public Entity[] npc = new Entity[10];
+    ArrayList<Entity> entityList = new ArrayList<>();
 
 
     // Stato di gioco
@@ -158,28 +156,45 @@ public class GamePanel extends JPanel implements Runnable{
             // Caselle
             tileM.draw(g2);
 
-            for (SuperObject superObject : obj) {
-
-                if (superObject != null) {
-                    superObject.draw(g2, this);
-                }
-            }
-
-            // NPC
+            // Aggiungi entità alla lista
+            entityList.add(player);
             for (Entity entity : npc) {
 
                 if (entity != null) {
-                    entity.draw(g2);
+
+                    entityList.add(entity);
                 }
             }
 
-            // GIOCATORE
-            player.draw(g2);
+            for (Entity entity : obj) {
+
+                if (entity != null) {
+
+                    entityList.add(entity);
+                }
+            }
+
+            // Ordina
+            entityList.sort(Comparator.comparingInt(e -> e.worldY));
+
+            // Mostra entità
+            for (Entity entity : entityList) {
+
+                entity.draw(g2);
+            }
+
+            // Svuota lista
+            for(int i = 0; i < entityList.size(); i++) {
+
+                entityList.remove(i);
+            }
 
             // UI
             try {
+
                 ui.draw(g2);
             } catch (IOException e) {
+
                 throw new RuntimeException(e);
             }
         }

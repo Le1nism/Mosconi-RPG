@@ -1,7 +1,7 @@
 package main;
 
+import entity.Entity;
 import object.Heart;
-import object.SuperObject;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -47,7 +47,7 @@ public class UI {
             }
 
         // Crea oggetti in HUD
-        SuperObject heart = new Heart(gp);
+        Entity heart = new Heart(gp);
         heart_full = heart.image;
         heart_half = heart.image2;
         heart_blank = heart.image3;

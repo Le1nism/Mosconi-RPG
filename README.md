@@ -38,3 +38,6 @@ Added basic events (damage / heal) + sound effects.
 
 ### v0.6.1-beta
 Fixing pit event bug so that you can't take damage multiple times if you spam the Enter key.
+
+### v0.6.2-beta
+Improved render order with an ArrayList
