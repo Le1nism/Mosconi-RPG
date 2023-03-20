@@ -20,6 +20,7 @@ public class Sound {
         soundURL[4] = getClass().getResource("/sound/fanfare.wav");
         soundURL[5] = getClass().getResource("/sound/mosconi.wav");
         soundURL[6] = getClass().getResource("/sound/mosconiHeal.wav");
+        soundURL[7] = getClass().getResource("/sound/mosconiStart.wav");
     }
 
     public void setFile(int i) {

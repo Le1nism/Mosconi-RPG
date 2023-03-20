@@ -41,3 +41,6 @@ Fixing pit event bug so that you can't take damage multiple times if you spam th
 
 ### v0.6.2-beta
 Improved render order with an ArrayList
+
+### v0.7-beta
+Added slime enemy.

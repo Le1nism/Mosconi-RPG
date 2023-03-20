@@ -35,6 +35,11 @@ public class Entity {
     public String name;
     public boolean collision = false;
 
+    public boolean invincible = false;
+    public int invincibleCounter = 0;
+
+    public int type; // (0 - Giocatore) (1 - NPC) (2 - Mostro)
+
     // Status personaggio
     public int maxLife;
     public int life;
@@ -72,9 +77,21 @@ public class Entity {
         collisionOn = false;
         gp.cChecker.checkTile(this);
         gp.cChecker.checkObject(this, false);
-        gp.cChecker.checkPlayer(this);
+        gp.cChecker.checkEntity(this, gp.npc);
+        gp.cChecker.checkEntity(this, gp.monster);
+        boolean contactPlayer = gp.cChecker.checkPlayer(this);
 
+        if(this.type == 2 && contactPlayer) {
 
+            if(!gp.player.invincible) {
+
+                // Ora possiamo infliggere danno
+                gp.player.life -= 1;
+                gp.player.invincible = true;
+            }
+        }
+
+        // Se la collisione è falsa il giocatore può muoversi
         if(!collisionOn) {
 
             switch (direction) {

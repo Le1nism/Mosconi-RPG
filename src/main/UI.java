@@ -126,7 +126,7 @@ public class UI {
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 70f));
         String text = "Mosconi RPG";
         int x = getXForCenteredText(text);
-        int y = gp.tileSize * 3;
+        int y = gp.tileSize * 2;
 
         // Ombra
         g2.setColor(Color.gray);
@@ -134,6 +134,12 @@ public class UI {
 
         // Colore principale
         g2.setColor(Color.white);
+        g2.drawString(text, x, y);
+
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 40f));
+        text = "v0.7-beta";
+        x = getXForCenteredText(text);
+        y += gp.tileSize;
         g2.drawString(text, x, y);
 
         // Immagine sfondo

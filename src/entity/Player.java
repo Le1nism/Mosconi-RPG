@@ -3,8 +3,7 @@ package entity;
 import main.GamePanel;
 import main.KeyHandler;
 
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
@@ -102,6 +101,10 @@ public class Player extends Entity {
             int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
             interactNPC(npcIndex);
 
+            // Controlla collisione con mostri
+            int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
+            contactMonster(monsterIndex);
+
             // Controlla eventi
             gp.eHandler.checkEvent();
             gp.keyH.enterPressed = false;
@@ -127,6 +130,30 @@ public class Player extends Entity {
                 }
                 spriteCounter = 0;
             }   
+        }
+
+        // DEVE essere fuori dall'if sopra
+        if(invincible) {
+
+            invincibleCounter++;
+
+            if(invincibleCounter > 60) {
+
+                invincible = false;
+                invincibleCounter = 0;
+            }
+        }
+    }
+
+    private void contactMonster(int i) {
+
+        if(i != 999) {
+
+            if(!invincible) {
+
+                life -= 1;
+                invincible = true;
+            }
         }
     }
 
@@ -188,6 +215,14 @@ public class Player extends Entity {
             }
         }
 
+        if(invincible) {
+
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+        }
         g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+
+        // Resetta alpha
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
     }
 }
