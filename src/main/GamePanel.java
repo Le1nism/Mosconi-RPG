@@ -203,10 +203,7 @@ public class GamePanel extends JPanel implements Runnable{
             }
 
             // Svuota lista
-            for(int i = 0; i < entityList.size(); i++) {
-
-                entityList.remove(i);
-            }
+            entityList.clear();
 
             // UI
             try {

@@ -137,7 +137,7 @@ public class UI {
         g2.drawString(text, x, y);
 
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 40f));
-        text = "v0.7-beta";
+        text = "v0.7.1-beta";
         x = getXForCenteredText(text);
         y += gp.tileSize;
         g2.drawString(text, x, y);

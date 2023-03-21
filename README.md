@@ -44,3 +44,6 @@ Improved render order with an ArrayList
 
 ### v0.7-beta
 Added slime enemy.
+
+### v0.7.1-beta
+Fixed dialogues not showing up when pressing the Enter key alone
