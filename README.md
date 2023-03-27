@@ -8,7 +8,7 @@ WASD - Movement
 
 Esc - Pause
 
-Enter - Interact
+Enter - Interact / Attack
 
 UP/DOWN - Select options
 
@@ -34,16 +34,19 @@ Added title screen.
 Added health bar.
 
 ### v0.6-beta
-Added basic events (damage / heal) + sound effects.
+Added basic events (damage / heal) + sound effects
 
 ### v0.6.1-beta
 Fixing pit event bug so that you can't take damage multiple times if you spam the Enter key.
 
 ### v0.6.2-beta
-Improved render order with an ArrayList
+Improved render order with an ArrayList.
 
 ### v0.7-beta
 Added slime enemy.
 
 ### v0.7.1-beta
-Fixed dialogues not showing up when pressing the Enter key alone
+Fixed dialogues not showing up when pressing the Enter key alone.
+
+### v0.8a-beta
+Added attack animation (still broken, will be fixed in v0.8b).
